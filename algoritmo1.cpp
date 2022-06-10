@@ -3,7 +3,7 @@
 #include<string>
 #include<chrono>
 using namespace std ;
-void misaludo (string m, int demora, int veces){
+void misaludo(string m, int demora, int veces){
     for (int i =1; i <= veces ; i ++) {
         cout << m+"\n";
         this_thread::sleep_for(chrono::milliseconds(demora));
