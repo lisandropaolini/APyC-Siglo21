@@ -35,7 +35,7 @@ void generarThreads(int n){
             tab = tab + "\t";
         }
         int soyInt = i+1;
-        string m = tab + "Soy " + to_string(soyInt);
+        string m = tab + "Soy el proceso " + to_string(soyInt);
         threads[i] = thread(saludo, m, 100, 3);
     }
 
