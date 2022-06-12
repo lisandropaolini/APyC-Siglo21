@@ -4,28 +4,19 @@
 #include<chrono>
 #include <vector>
 using namespace std ;
-void saludo(string m, int demora, int veces){
+void saludo(string m, int veces){
+
+    int numero, min, max, demora;
+    srand(time(0)); //semilla
+
     for (int i =1; i <= veces ; i ++) {
-        cout << m+"\n";
+        cout << m+"\n"; // mensaje de salida por pantalla
+
+        demora = rand() % 100 + 500; //obtengo el random para la demora
+
         this_thread::sleep_for(chrono::milliseconds(demora));
     }
 }
-// int main(){
-//     thread P[15];
-//     for (int i =1; i <= 15 ; i ++) {
-//         string m = "Soy " + to_string(i);
-//         P[i]=thread(&saludo, m, 100, 3);
-//     }
-
-//     cout << "join \n";
-
-//     for (int i =1; i <= 15 ; i ++) {
-//         P[i].join();
-//     }
-
-//     cout << "Fin \n";
-//     return 0;
-// }
 
 void generarThreads(int n){
     std::vector<thread> threads(n);
@@ -36,7 +27,7 @@ void generarThreads(int n){
         }
         int soyInt = i+1;
         string m = tab + "Soy el proceso " + to_string(soyInt);
-        threads[i] = thread(saludo, m, 100, 3);
+        threads[i] = thread(saludo, m, 3);        
     }
 
     for (auto& th : threads) {
