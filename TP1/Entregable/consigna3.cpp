@@ -20,18 +20,22 @@ public:
     int demora;
     SaludoConTiempoRandom(string m){
         mensaje.texto = m;
-        demora = rand() % 200 + 400; //obtengo el random para la cantidad de demora
+
+        // al crear el saludo, obtengo el random para la cantidad de demora
+        demora = rand() % 500 + 200; 
     }
 };
 
 void miOtroSaludo(SaludoConTiempoRandom saludo){
 
-    int veces = 1 + rand() % (15);
+    int veces = 1 + rand() % (10);
 
     // itero el mensaje una cantidad random
     for (int i =1; i <= veces ; i ++) {
 
-        cout << saludo.mensaje.texto +" - " +to_string(i)+ "/" + to_string(veces) +"\n"; // mensaje de salida por pantalla
+        // mensaje de salida por pantalla
+        cout << saludo.mensaje.texto +" - " +to_string(i)+ "/" + to_string(veces) +"\n"; 
+
         this_thread::sleep_for(chrono::milliseconds(saludo.demora));
     }
 }
@@ -39,7 +43,6 @@ void miOtroSaludo(SaludoConTiempoRandom saludo){
 void generarThreads(int n){
     std::vector<thread> threads(n);
     
-
     //for para iterar la cantidad de hilos que se generaran
     for (int i = 0; i < n; i++) { 
         string tab = "";
@@ -50,7 +53,7 @@ void generarThreads(int n){
         }
 
         // numero de hilo del saludo
-        string m = tab + "Soy el Saludo " + to_string(i+1); 
+        string m = tab + "Soy el Proceso " + to_string(i+1); 
 
         SaludoConTiempoRandom saludo(m);
 
@@ -64,10 +67,13 @@ void generarThreads(int n){
 }
 
 int main(){
-    srand(time(0)); //semilla
+    //semilla
+    srand(time(0)); 
+
     // se inicia el proceso con parametro random, hilos a generar
     int hilosRnd = rand() % 15;
-    cout << "Hola, estoy generando " + to_string(hilosRnd) + " hilos de forma random \n\n";
+
+    cout << "Hola, estoy generando " + to_string(hilosRnd) + " procesos de forma random \n\n";
     generarThreads(hilosRnd);
 }
 
