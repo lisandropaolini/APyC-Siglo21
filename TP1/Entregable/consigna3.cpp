@@ -19,14 +19,13 @@ public:
     Mensaje mensaje;
     int demora;
     SaludoConTiempoRandom(string m){
-        srand(time(0)); //semilla
         mensaje.texto = m;
         demora = rand() % 200 + 400; //obtengo el random para la cantidad de demora
     }
 };
 
 void miOtroSaludo(SaludoConTiempoRandom saludo){
-    srand(time(0)); //semilla
+
     int veces = 1 + rand() % (15);
 
     // itero el mensaje una cantidad random
@@ -39,7 +38,7 @@ void miOtroSaludo(SaludoConTiempoRandom saludo){
 
 void generarThreads(int n){
     std::vector<thread> threads(n);
-    srand(time(0)); //semilla
+    
 
     //for para iterar la cantidad de hilos que se generaran
     for (int i = 0; i < n; i++) { 
@@ -49,7 +48,7 @@ void generarThreads(int n){
         for (int j = 0; j < i; j++) { 
             tab = tab + "\t";
         }
-        
+
         // numero de hilo del saludo
         string m = tab + "Soy el Saludo " + to_string(i+1); 
 
@@ -65,7 +64,7 @@ void generarThreads(int n){
 }
 
 int main(){
-
+    srand(time(0)); //semilla
     // se inicia el proceso con parametro random, hilos a generar
     int hilosRnd = rand() % 15;
     cout << "Hola, estoy generando " + to_string(hilosRnd) + " hilos de forma random \n\n";
