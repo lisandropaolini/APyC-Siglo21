@@ -1,30 +1,34 @@
 #include<iostream>
-#include<string>
-#include<stdexcept>
-#include<cctype>
-#include <stdio.h>
-#include<stdlib.h>
-#include<time.h>
 #include<thread>
-#include<chrono>
 #include<vector>
+#include<unistd.h>
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#include<sys/wait.h>
+#include<time.h>
 using namespace std;
+
+int variableGlobal;
 
 // Se utiliza para obtener el tiempo de espera en cada hilo
 int getRandomEspera(){
-    srand(time(0)); //semilla
-    return rand() % (2000 + 1);
+    int random = rand() % (2 + 1);
+    // cout << "random "+ to_string(random)+ "\n";
+    return random;
 }
 
-// void hiloTipo1(int i){
-//   cout << "Instancia "+ to_string(i)+" del hilo 1" +"\n";
-//   this_thread::sleep_for(chrono::milliseconds(getRandomEspera()));
-// }
+void hiloTipo1(int i){
+  cout << "Instancia "+ to_string(i)+" del hilo 1" +"\n";
+  sleep(getRandomEspera());
+  ++variableGlobal;
+}
 
-// void hiloTipo2(int i){
-//   cout << "Instancia "+ to_string(i)+" del hilo 2" +"\n";
-//   this_thread::sleep_for(chrono::milliseconds(getRandomEspera()));
-// }
+void hiloTipo2(int i){
+  cout << "Instancia "+ to_string(i)+" del hilo 2" +"\n";
+  sleep(getRandomEspera());
+  cout << "Variable Global Compartida "+ to_string(variableGlobal)+ "\n";
+}
 
 void validaEntrada(int argc, char *argv[]){
 
@@ -35,21 +39,20 @@ void validaEntrada(int argc, char *argv[]){
     throw invalid_argument ("Valor de M no ingresado !");
   }
   try {
-    string m = argv[1];
+    string n = argv[1];
+    string m = argv[2];
     int num = 0;
-    num = std::stoi(m);
-    cerr << "Valor de N " + m + "\n";
-
-    string n = argv[2];
     num = std::stoi(n);
-    cerr << "Valor de M " + n + "\n";
+    num = std::stoi(m);
+
+    cerr << "Valor de N " + n + "\n";
+    cerr << "Valor de M " + m + "\n";
   } catch (exception& e) {
     throw invalid_argument("Parametros no valido");
   }
 }
 
-int main (int argc, char *argv[])
-{
+int main (int argc, char *argv[]){
 
 // try que se utiliza para validar los parametros de entrada
   try {
@@ -60,35 +63,42 @@ int main (int argc, char *argv[])
     exit (EXIT_FAILURE);
   }
 
-  int valorM = 0;
   int valorN = 0;
+  int valorM = 0;
 
   try {
-    string m = argv[1];
-    valorM = std::stoi(m);
-    string n = argv[2];
+    string n = argv[1];
     valorN = std::stoi(n);
+    string m = argv[2];
+    valorM = std::stoi(m);
 
   } catch (exception& e) {
     cerr << e.what () << endl;
     exit (EXIT_FAILURE);
   }
 
-    //   std::vector<thread> threadsM(valorM);
-    //   std::vector<thread> threadsN(valorN);
+  variableGlobal=0; 
+  int id = fork ();
+  // pid_t pid = fork();
+  
+  if (id == 0) {       //proceso hijo
 
-    // for (int i =0; i < valorM ; i ++) {
-    //     threadsM[i] = thread(hiloTipo1, i); 
-    // }
-    // for (auto& th : threadsM) {
-    //     th.join();
-    // }
+    for (int i =0; i < valorN ; i ++) {
+      hiloTipo1(i);
+    }
+  } else {       //proceso padre
 
-    // for (int i =0; i < valorN ; i ++) {
-    //     threadsN[i] = thread(hiloTipo2, i); 
-    // }
-    // for (auto& th : threadsN) {
-    //     th.join();
-    // }
+    for (int i =0; i < valorM ; i ++) {
+      hiloTipo2(i);
+    }
+  }
 
+  if (id != 0) {
+    int child_status;
+    waitpid(id, &child_status, 0);      //espera a que termine el proceso hijo
+    cout << "Se ha finalizando la ejecución\n";
+  }
+
+
+    // cout << "Variable Global Compartida Valor Final "+ to_string(variableGlobal)+ "\n";
 }
