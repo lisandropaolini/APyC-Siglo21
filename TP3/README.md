@@ -15,4 +15,4 @@ El proceso iniciar_juego será el encargado de gestionar la partida, será el qu
 
 El proceso jugador será el que implementará la lógica del jugador en la partida, en base a las cartas que reciba del repartidor (iniciar_juego), y de su propio estado (puntos) decidirá si continúa en el juego pidiendo más cartas, se queda ahí, o abandona (porque se pasó). Esta lógica de juego se deja abierta, de forma que se implemente como cada grupo lo decida, pudiendo llegar a ser simplemente aleatoria: según un número aleatorio el jugador decide plantarse, pedir carta, o abandonar.
 
-	a) Recordar que la generación de los N procesos jugadores deberá realizarse a través del uso de forks, y la comunicación repartidor/jugador se efectuará mediante pipes.
+a) Recordar que la generación de los N procesos jugadores deberá realizarse a través del uso de forks, y la comunicación repartidor/jugador se efectuará mediante pipes.

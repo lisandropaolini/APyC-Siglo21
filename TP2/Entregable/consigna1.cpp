@@ -10,6 +10,8 @@
 #include<vector>
 using namespace std;
 
+int variableGlobal=0;
+
 // Se utiliza para obtener el tiempo de espera en cada hilo
 int getRandomEspera(){
     srand(time(0)); //semilla
@@ -18,11 +20,13 @@ int getRandomEspera(){
 
 void hiloTipo1(int i){
   cout << "Instancia "+ to_string(i)+" del hilo 1" +"\n";
+  variableGlobal++;
   this_thread::sleep_for(chrono::milliseconds(getRandomEspera()));
 }
 
 void hiloTipo2(int i){
   cout << "Instancia "+ to_string(i)+" del hilo 2" +"\n";
+  variableGlobal++;
   this_thread::sleep_for(chrono::milliseconds(getRandomEspera()));
 }
 
@@ -91,4 +95,5 @@ int main (int argc, char *argv[])
         th.join();
     }
 
+    cout << "variable Global "+ to_string(variableGlobal)+ "\n";
 }
