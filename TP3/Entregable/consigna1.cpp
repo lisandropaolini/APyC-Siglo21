@@ -1,5 +1,3 @@
-
-
 #include <stdio.h>   //Libreria basica de entrada salida
 #include <stdlib.h>  //Libreria para el uso de rand( )
 #include <time.h>    //Libreria para el uso de time( )
@@ -568,13 +566,16 @@ char juega_banca(jugador * jugadores,int num_jugadores){
 
 }//Fin funcion juega_banca
 
-// Se utiliza para obtener el tiempo de espera en cada hilo
+// Se utiliza para simular si saca otra carta o se planta
+// el 66% de las veces saca otra carta
+// el 33% de las veces se planta
 char getRandomSacaOPlanta(){
     int random = rand() % (2 + 1);
     cout << "random "+ to_string(random)+ "\n";
-    if (random == 2){
+    if (random == 2){ // se planta
         return 'p';
     }
+    // Saca otra carta
     return 'c';
 }
 
