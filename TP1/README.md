@@ -1,6 +1,5 @@
 # APyC-Siglo21
 
-
 ## TP1
 
 ### Consigna 1
@@ -20,6 +19,5 @@ Se valorará la claridad del código y debidamente comentado.
 Adicionalmente se considera mayor puntaje si se incluye tratamiento correcto de errores, es decir, en caso de producirse errores deberá informarse al usuario del tipo de error ocurrido.
 Breve informe que incluye el trabajo teórico realizado y la resolución/análisis de los ejercicios planteados. 
 En dicho informe se deberá destinar una sección a describir la modalidad de trabajo, y dificultades encontradas y cómo fueron solucionadas (en caso de haberlas).
-
 
 	g++ algoritmo1.cpp -o algoritmo1.out -pthread -std=c++11
